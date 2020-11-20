@@ -6,8 +6,6 @@ const del = require('del');
 const browserSync = require('browser-sync');
 const { reload } = browserSync;
 const autoprefixer = require('autoprefixer');
-const sortCSSmq = require('sort-css-media-queries');
-const cssnano = require('gulp-cssnano');
 
 $.sass.compiler = require('node-sass');
 
@@ -101,12 +99,6 @@ const build = gulp.series(
   copy
 );
 
-gulp.task('default', function() {
-  return gulp.src('./main.css')
-      .pipe(cssnano())
-      .pipe(gulp.dest('./out'));
-});
-
 exports.styles = styles
 exports.scripts = scripts
 exports.vendors = vendors
@@ -116,4 +108,4 @@ exports.clean = clean
 exports.pages = pages
 exports.build = build
 exports.serve = serve
-exports.default = serve
+exports.default = serve 
