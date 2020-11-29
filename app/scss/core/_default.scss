@@ -1,0 +1,19 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #acd3d3;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 1920px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

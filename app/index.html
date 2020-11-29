@@ -3,13 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Calculator</title>
   <link rel="stylesheet" href="css/vendors.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Hello!!!</h1>
+  <main class="main-content">
+    <h1 class="text-title">Hello! This is Calculator!</h1>
+    <section class="calculator">
+      <div class="calculator__history"></div>
+      <div class="calculator__result"></div>
+      <div class="calculator__funcionality functionality">
+        <div class="functionality__button number" id="7">7</div>
+        <div class="functionality__button number" id="8">8</div>
+        <div class="functionality__button number">9</div>
+        <div class="functionality__button operator">:</div>
+        <div class="functionality__button number">4</div>
+        <div class="functionality__button number">5</div>
+        <div class="functionality__button number">6</div>
+        <div class="functionality__button operator">*</div>
+        <div class="functionality__button number">1</div>
+        <div class="functionality__button number">2</div>
+        <div class="functionality__button number">3</div>
+        <div class="functionality__button operator">-</div>
+        <div class="functionality__button number">0</div>
+        <div class="functionality__button reset-button">Reset</div>
+        <div class="functionality__button compute-button">=</div>
+        <div class="functionality__button operator">+</div>
+      </div>
+    </section>
+  </main>
   <script src="js/vendors.js"></script>
   <script src="js/index.js"></script>
 </body>
-</html> 
+</html>
