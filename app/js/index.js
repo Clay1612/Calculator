@@ -1,24 +1,29 @@
 "use strict"
 
+let result = document.querySelector('.calculator__result');
 
 
+// Обработчик события, передача значения кнопки в result
+for (let number of document.querySelectorAll('.number')) {
+  number.addEventListener('click', rem);
+}
 
+function rem(event) {
+  let val = event.target.innerHTML;
 
+  let res = document.querySelector('.calculator__result');
+  res.value = val;
+ }
 
+// функция сложения
 
+let summary = document.querySelector('.addition');
+summary.addEventListener('click', sum);
 
-
-
-
-
-
-
-
-
-
-
-
-
+function sum () {
+  let i = document.querySelector('.calculator__result');
+  console.log(i.value);
+}
 
 
 
