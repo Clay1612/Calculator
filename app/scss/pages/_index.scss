@@ -24,6 +24,9 @@ h1 {
     width: 100%;
     height: 150px;
 
+    font-size: 20px;
+    text-align: right;
+
     border-bottom: 10px solid rgb(120, 120, 124);
     background-color: rgb(228, 225, 225);
   }
@@ -32,8 +35,17 @@ h1 {
     width: 100%;
     height: 120px;
 
+    font-size: 30px;
+    text-align: center;
+
+    border:none;
     border-bottom: 10px solid rgb(120, 120, 124);
     background-color: rgb(228, 225, 225);
+
+    &:focus {
+      outline: none;
+    }
+
   }
 
   &__funcionality {
@@ -62,13 +74,18 @@ h1 {
     &:hover {
       background-color: greenyellow;
     }
+    &:focus {
+      background-color: greenyellow;
+      outline: none;
+    }
   }
 }
 
 .reset-button {
   background-color: rgb(161, 1, 1);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color:rgb(228, 8, 8);
   }
 }
@@ -76,7 +93,8 @@ h1 {
 .compute-button {
   background-color: rgb(1, 114, 1);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color:rgb(5, 204, 5);
   }
 }
