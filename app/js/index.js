@@ -1,80 +1,49 @@
 "use strict"
 
-let result = document.querySelector('.calculator__result');
-
-
-// Обработчик события, передача значения кнопки в result
-for (let number of document.querySelectorAll('.number')) {
-  number.addEventListener('click', rem);
+function getHistory() {
+  return document.querySelector('.calculator__history').innerHTML;
 }
 
-function rem(event) {
-  let val = event.target.innerHTML;
-
-  let res = document.querySelector('.calculator__result');
-  res.value = val;
- }
-
-// функция сложения
-
-let summary = document.querySelector('.addition');
-summary.addEventListener('click', sum);
-
-function sum () {
-  let i = document.querySelector('.calculator__result');
-  console.log(i.value);
+function printHistory(num) {
+  return document.querySelector('.calculator__history').innerHTML = num;
 }
 
+function getResult() {
+  return document.querySelector('.calculator__result').value;
+}
 
+function printResult(num) {
+  return document.querySelector('.calculator__result').value = num;
+}
 
+for (let operator of document.querySelectorAll(".operator")) {
+  operator.addEventListener("click", function () {
+    if(this.id == "Reset") {
+      printHistory("");
+      printResult("");
+    } else {
+        let result = getResult();
+        let history = getHistory();
+        if(result!="") {
+          history = history+result;
+          if(this.id=="=") {
+            let res = eval(history);
+            printResult(res);
+            printHistory("");
+          } else {
+            history=history+this.id;
+            printHistory(history);
+            printResult("");
+          }
+        }
+    }
+  });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// for (let numbers of document.querySelectorAll('.number')) {
-
-//   numbers.addEventListener("click" , rem);
-// }
-
-// function rem(event) {
-//   let a = event.target.innerHTML;
-
-//   let result = document.querySelector('.calculator__result');
-//   result.innerHTML += a;
-//  }
-
-// for (let oper of document.querySelectorAll('.operator')) {
-
-//   oper.addEventListener("click" , rem);
-// }
-
-// // let a = document.getElementById('7');
-// // let b = document.getElementById('8');
-
-// // let c = +a.innerHTML + +b.innerHTML;
-
-// // console.log(c);
-
-// // for (let numbers of document.querySelectorAll('.number')) {
-
-// // }
+for (let number of document.querySelectorAll(".number")) {
+  number.addEventListener("click", function () {
+    let res = getResult();
+    res=res+this.id;
+    printResult(res);
+  });
+}
