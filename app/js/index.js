@@ -5,11 +5,16 @@ let values = [];
 let hist = document.querySelector('.calculator__history');
 let result = document.querySelector('.calculator__result');
 
-let val = [];
+let val = ['','',''];
 
 //Print on History Display
 let display = function() {
-	hist.innerHTML = values.join("");
+	hist.innerHTML = values.join('');
+}
+
+let update = function(value) {
+	val.push(value);
+	val.shift();
 }
 
 // Arithmetic functions
@@ -23,20 +28,17 @@ let Arithmetic = {
 //Event Listeners
 for(let number of document.querySelectorAll('.number')) {
   number.addEventListener('click' , function () {
-    values.push(this.innerHTML);
-    display();
-
-    console.log(values);
+  values.push(this.innerHTML);
+  display();
   })
 }
 
 for(let operator of document.querySelectorAll('.operator')) {
   operator.addEventListener('click' , function () {
-    // val = values.join('');
-    // val.push(this.innerHTML);
-    values.push(this.innerHTML);
+		update(values.join(''));
+    update(this.innerHTML);
+    values = [];
     display();
-    console.log(values);
   })
 }
 
@@ -50,14 +52,16 @@ reset.addEventListener('click' , function(){
 
 let compute = document.querySelector('.functionality__compute-button');
 compute.addEventListener('click', function() {
-  if (values[1] === '+') {
-    result.value = Arithmetic.summary(Number(values[0]) , Number(values[2]));
-  } else if (values[1] === '-') {
-    result.value = Arithmetic.subtract(Number(values[0]) , Number(values[2]));
-  } else if (values[1] === '*') {
-    result.value = Arithmetic.multiply(Number(values[0]) , Number(values[2]));
-  } else if (values[1] === '/') {
-    result.value = Arithmetic.divide(Number(values[0]) , Number(values[2]));
+  update(values.join(''));
+
+  if (val[1] === '+') {
+    result.value = Arithmetic.summary(Number(val[0]) , Number(val[2]));
+  } else if (val[1] === '-') {
+    result.value = Arithmetic.subtract(Number(val[0]) , Number(val[2]));
+  } else if (val[1] === '*') {
+    result.value = Arithmetic.multiply(Number(val[0]) , Number(val[2]));
+  } else if (val[1] === '/') {
+    result.value = Arithmetic.divide(Number(val[0]) , Number(val[2]));
   }
 })
 
