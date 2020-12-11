@@ -4,14 +4,19 @@
 let values = [];
 let hist = document.querySelector('.calculator__history');
 let result = document.querySelector('.calculator__result');
-
 let val = ['','',''];
+let res = 0;
 
-//Print on History Display
+//Print on Result and History Displays
 let display = function() {
-	hist.innerHTML = values.join('');
+	result.value = values.join('');
 }
 
+let History = function() {
+  hist.innerHTML = val.join('') + '=' + result.value;
+}
+
+//Update function
 let update = function(value) {
 	val.push(value);
 	val.shift();
@@ -35,10 +40,19 @@ for(let number of document.querySelectorAll('.number')) {
 
 for(let operator of document.querySelectorAll('.operator')) {
   operator.addEventListener('click' , function () {
-		update(values.join(''));
-    update(this.innerHTML);
-    values = [];
-    display();
+    if(res) {
+      update(res);
+      update(this.innerHTML);
+      values = [];
+      display();
+    } else {
+      update(values.join(''));
+      update(this.innerHTML);
+      values = [];
+      display();
+  
+      console.log(val);
+    }
   })
 }
 
@@ -48,12 +62,12 @@ reset.addEventListener('click' , function(){
   hist.innerHTML = '';
   result.value = '';
   values = [];
+  res = 0;
 })
 
 let compute = document.querySelector('.functionality__compute-button');
 compute.addEventListener('click', function() {
   update(values.join(''));
-
   if (val[1] === '+') {
     result.value = Arithmetic.summary(Number(val[0]) , Number(val[2]));
   } else if (val[1] === '-') {
@@ -63,7 +77,11 @@ compute.addEventListener('click', function() {
   } else if (val[1] === '/') {
     result.value = Arithmetic.divide(Number(val[0]) , Number(val[2]));
   }
+  History();
+  res = result.value;
+  console.log(val);
 })
+
 
 //Previos version of Calculator
 
