@@ -2,18 +2,20 @@
 
 //Global variable
 let values = [];
-let hist = document.querySelector('.calculator__history');
+let HistoryDisplay = document.querySelector('.calculator__history');
 let result = document.querySelector('.calculator__result');
 let val = ['','',''];
 let res = 0;
+let Hist = [];
 
 //Print on Result and History Displays
 let display = function() {
 	result.value = values.join('');
 }
 
-let History = function() {
-  hist.innerHTML = val.join('') + '=' + result.value;
+let History = function(valueOfResult) {
+  Hist.push(valueOfResult);
+  HistoryDisplay.innerHTML = Hist.join( document.createElement('br') );
 }
 
 //Update function
@@ -50,8 +52,6 @@ for(let operator of document.querySelectorAll('.operator')) {
       update(this.innerHTML);
       values = [];
       display();
-  
-      console.log(val);
     }
   })
 }
@@ -59,10 +59,11 @@ for(let operator of document.querySelectorAll('.operator')) {
 // Reset and Compute
 let reset = document.querySelector('.functionality__reset-button');
 reset.addEventListener('click' , function(){
-  hist.innerHTML = '';
+  HistoryDisplay.innerHTML = '';
   result.value = '';
   values = [];
   res = 0;
+  Hist = [];
 })
 
 let compute = document.querySelector('.functionality__compute-button');
@@ -77,9 +78,10 @@ compute.addEventListener('click', function() {
   } else if (val[1] === '/') {
     result.value = Arithmetic.divide(Number(val[0]) , Number(val[2]));
   }
-  History();
+
+  History(val.join('') + '=' + result.value);
   res = result.value;
-  console.log(val);
+  console.log(Hist);
 })
 
 
