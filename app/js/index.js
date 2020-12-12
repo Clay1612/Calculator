@@ -15,7 +15,8 @@ let display = function() {
 
 let History = function(valueOfResult) {
   Hist.push(valueOfResult);
-  HistoryDisplay.innerHTML = Hist.join( document.createElement('br') );
+  HistoryDisplay.append ( Hist[Hist.length-1] );
+  HistoryDisplay.append( document.createElement('br') );
 }
 
 //Update function
@@ -69,19 +70,19 @@ reset.addEventListener('click' , function(){
 let compute = document.querySelector('.functionality__compute-button');
 compute.addEventListener('click', function() {
   update(values.join(''));
+
   if (val[1] === '+') {
     result.value = Arithmetic.summary(Number(val[0]) , Number(val[2]));
   } else if (val[1] === '-') {
     result.value = Arithmetic.subtract(Number(val[0]) , Number(val[2]));
-  } else if (val[1] === '*') {
-    result.value = Arithmetic.multiply(Number(val[0]) , Number(val[2]));
-  } else if (val[1] === '/') {
-    result.value = Arithmetic.divide(Number(val[0]) , Number(val[2]));
+  } else if (val[1] === '×') {
+    result.value = Arithmetic.multiply(Number(val[0]) , Number(val[2])).toFixed(2);
+  } else if (val[1] === '÷') {
+    result.value = Arithmetic.divide(Number(val[0]) , Number(val[2])).toFixed(2);
   }
 
   History(val.join('') + '=' + result.value);
   res = result.value;
-  console.log(Hist);
 })
 
 

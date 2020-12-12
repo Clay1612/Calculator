@@ -2,7 +2,7 @@ h1 {
   font-family: 'Courier New', Courier, monospace;
   font-size: 55px;
 
-  color: rgb(167, 26, 61);
+  color: rgb(23, 223, 179);
   text-align: center;
 
   transition: color 0.3s ease;
@@ -10,43 +10,38 @@ h1 {
 
 .calculator {
   margin: 0 auto;
-  width: 500px;
-  height: 600px;
-
-  border: 10px solid rgb(120, 120, 124);
+  width: 480px;
+  height: auto;
 
   &__history {
     width: 100%;
-    height: 150px;
+    min-height: 150px;
+    max-height: 250px;
 
-    font-size: 20px;
+    font-size: 30px;
     text-align: right;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
 
-    border-bottom: 10px solid rgb(120, 120, 124);
-    background-color: rgb(228, 225, 225);
+    border-bottom: 1px solid rgb(209, 209, 209);
+    background-color: rgb(43, 42, 42);
   }
 
   &__result {
     width: 100%;
-    height: 120px;
+    min-height: 120px;
 
     font-size: 40px;
     text-align: center;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
 
     border:none;
-    border-bottom: 10px solid rgb(120, 120, 124);
-    background-color: rgb(228, 225, 225);
+    background-color: rgb(43, 42, 42);
 
     &:focus {
       outline: none;
     }
-
-  }
-
-  &__funcionality {
-    width: 100%;
-    height: 310px;
-    background-color: rgb(228, 225, 225);
   }
 }
 
@@ -58,39 +53,49 @@ h1 {
   &__reset-button,
   &__compute-button {
     width: 120px;
-    height: 78px;
+    height: 80px;
 
     font-size: 45px;
     line-height: 70px;
     text-align: center;
+    color: rgb(43, 42, 42);
 
-    border: 2px solid rgb(120, 120, 124);
+    border: 1px solid rgb(43, 42, 42);
 
     transition: color 0.3s ease;
   }
-  &__button {
-    &:hover {
-      background-color: greenyellow;
-    }
-    &:focus {
-      background-color: greenyellow;
-      outline: none;
-    }
-  }
   &__reset-button {
-    background-color: rgb(161, 1, 1);
+    background-color: rgb(209, 209, 209);
 
     &:hover,
     &:focus {
-      background-color:rgb(228, 8, 8);
+      background-color:rgb(221, 221, 221);
     }
   }
   &__compute-button {
-    background-color: rgb(1, 114, 1);
+    background-color: rgb(218, 142, 1);
   
     &:hover,
     &:focus {
-      background-color:rgb(5, 204, 5);
+      background-color:orange;
     }
+  }
+}
+
+.number {
+  background-color: rgb(209, 209, 209);
+
+  &:hover,
+  &:focus {
+    background-color: rgb(221, 221, 221);
+  }
+}
+
+.operator {
+  background-color: rgb(218, 142, 1);
+
+  &:hover,
+  &:focus {
+    background-color:orange;
   }
 }
