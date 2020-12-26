@@ -1,137 +1,91 @@
 'use strict'
 
 //Global variable
-let values = [];
-let HistoryDisplay = document.querySelector('.calculator__history');
-let result = document.querySelector('.calculator__result');
-let val = ['','',''];
-let res = 0;
-let Hist = [];
+let historyDisplay = document.querySelector('.calculator__history');
+let resultDisplay = document.querySelector('.calculator__result');
 
-//Print on Result and History Displays
-let display = function() {
-	result.value = values.join('');
+/**
+ * FIXME:
+ * - Если удалить кавычки, сломается вся вычислительная логика и архитектура
+ */
+let values = ['','',''];
+let historyVariable = [];
+
+//Print on History Display function
+let historyFunction = function(valueOfResult) {
+  historyVariable.push(valueOfResult);
+  historyDisplay.append(historyVariable[historyVariable.length-1]);
+  historyDisplay.append(document.createElement('br'));
 }
 
-let History = function(valueOfResult) {
-  Hist.push(valueOfResult);
-  HistoryDisplay.append ( Hist[Hist.length-1] );
-  HistoryDisplay.append( document.createElement('br') );
-}
-
-//Update function
-let update = function(value) {
-	val.push(value);
-	val.shift();
+//printToValuesArray function
+let printToValuesArray = function(value) {
+	values.push(value);
+	values.shift();
 }
 
 // Arithmetic functions
 let Arithmetic = {
-  summary : function sum(a , b) {return a + b},
-  subtract : function sub(a , b) {return a - b},
-  multiply : function mul(a , b) {return a * b},
-  divide : function div(a , b) {return a / b},
+  '+' : function(a, b) {return a + b},
+  '-' : function(a, b) {return a - b},
+  '×' : function(a, b) {return a * b},
+  '÷' : function(a, b) {return a / b},
 };
+
+let computeFunction = function() {
+  const [value1, operator, value2] = values;
+  resultDisplay.value = Arithmetic[operator](Number(value1), Number(value2)).toFixed(2);
+}
 
 //Event Listeners
 for(let number of document.querySelectorAll('.number')) {
-  number.addEventListener('click' , function () {
-  values.push(this.innerHTML);
-  display();
+  number.addEventListener('click', function() {
+  resultDisplay.value = `${resultDisplay.value}${this.innerHTML}`;
   })
 }
 
 for(let operator of document.querySelectorAll('.operator')) {
-  operator.addEventListener('click' , function () {
-    if(res) {
-      update(res);
-      update(this.innerHTML);
-      values = [];
-      display();
+  operator.addEventListener('click', function() {
+    if(values[1]) {
+      printToValuesArray(resultDisplay.value);
+      computeFunction();
+
+      if(resultDisplay.value == Infinity) {
+        resultDisplay.value = 'Деление на 0 запрещено!'
+        historyFunction('');
+      } else {
+        historyFunction(`${values.join('')}=${resultDisplay.value}`);
+        printToValuesArray(resultDisplay.value);
+        printToValuesArray(this.innerHTML);
+        resultDisplay.value = '';
+      }
+
     } else {
-      update(values.join(''));
-      update(this.innerHTML);
-      values = [];
-      display();
+      printToValuesArray(resultDisplay.value);
+      printToValuesArray(this.innerHTML);
+      resultDisplay.value = '';
     }
   })
 }
 
-// Reset and Compute
 let reset = document.querySelector('.functionality__reset-button');
-reset.addEventListener('click' , function(){
-  HistoryDisplay.innerHTML = '';
-  result.value = '';
-  values = [];
-  res = 0;
-  Hist = [];
+reset.addEventListener('click', function(){
+  historyDisplay.innerHTML = '';
+  resultDisplay.value = '';
+  historyVariable = [];
+  values = ['','',''];
 })
 
 let compute = document.querySelector('.functionality__compute-button');
 compute.addEventListener('click', function() {
-  update(values.join(''));
+  printToValuesArray(resultDisplay.value);
+  computeFunction();
 
-  if (val[1] === '+') {
-    result.value = Arithmetic.summary(Number(val[0]) , Number(val[2]));
-  } else if (val[1] === '-') {
-    result.value = Arithmetic.subtract(Number(val[0]) , Number(val[2]));
-  } else if (val[1] === '×') {
-    result.value = Arithmetic.multiply(Number(val[0]) , Number(val[2])).toFixed(2);
-  } else if (val[1] === '÷') {
-    result.value = Arithmetic.divide(Number(val[0]) , Number(val[2])).toFixed(2);
+  if(resultDisplay.value == Infinity) {
+    resultDisplay.value = 'Деление на 0 запрещено!'
+    historyFunction('');
+  } else {
+    historyFunction(`${values.join('')}=${resultDisplay.value}`);
   }
-
-  History(val.join('') + '=' + result.value);
-  res = result.value;
+  values = ['','',''];
 })
-
-
-//Previos version of Calculator
-
-// function getHistory() {
-//   return document.querySelector('.calculator__history').innerHTML;
-// }
-
-// function printHistory(num) {
-//   return document.querySelector('.calculator__history').innerHTML = num;
-// }
-
-// function getResult() {
-//   return document.querySelector('.calculator__result').value;
-// }
-
-// function printResult(num) {
-//   return document.querySelector('.calculator__result').value = num;
-// }
-
-// for (let operator of document.querySelectorAll('.operator')) {
-//   operator.addEventListener('click', function () {
-//     if(this.id === 'Reset') {
-//       printHistory('');
-//       printResult('');
-//     } else {
-//         let result = getResult();
-//         let history = getHistory();
-//         if(result) {
-//           history = history+result;
-//           if(this.id === '=') {
-//             let res = eval(history);
-//             printResult(res);
-//             printHistory('');
-//           } else {
-//             history = history + this.id;
-//             printHistory(history);
-//             printResult('');
-//           }
-//         }
-//     }
-//   });
-// }
-
-// for (let number of document.querySelectorAll('.number')) {
-//   number.addEventListener('click', function () {
-//     let res = getResult();
-//     res = res + this.id;
-//     printResult(res);
-//   });
-// }
