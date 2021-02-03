@@ -3,11 +3,6 @@
 //Global variable
 let historyDisplay = document.querySelector('.calculator__history');
 let resultDisplay = document.querySelector('.calculator__result');
-
-/**
- * FIXME:
- * - Если удалить кавычки, сломается вся вычислительная логика и архитектура
- */
 let values = ['','',''];
 let historyVariable = [];
 
