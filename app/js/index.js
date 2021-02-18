@@ -65,13 +65,13 @@ class Calculator {
     resultDisplay.value = Arithmetic[operator](Number(value1), Number(value2)).toFixed(2);
   }
 
-  CLK() {
+  CLK() { //**FIX ME
     resultDisplay.value = `${resultDisplay.value}${this.innerHTML}`;
   }
 }
 
 const calculator = new Calculator();
-console.log(calculator);
+console.log(calculator); //**FIX ME
 
 for(let number of document.querySelectorAll('.number')) {
   number.addEventListener('click', calculator.CLK);
